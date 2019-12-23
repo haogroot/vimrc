@@ -27,6 +27,25 @@ syntax on
 colorscheme desert
 
 :set autowrite
+set hlsearch
+set cursorline
+set incsearch
+set scrolloff=3
+set wrap
+set linebreak
+set smartcase
+set clipboard=unnamed
+
+" Close arrow left, right, up and down
+noremap <UP> <NOP>
+noremap <DOWN> <NOP>
+noremap <LEFT> <NOP>
+noremap <RIGHT> <NOP>
+inoremap <UP> <NOP>
+inoremap <DOWN> <NOP>
+inoremap <LEFT> <NOP>
+inoremap <RIGHT> <NOP>
+
 
 " Tagbar
 "nmap tag :TagbarToggle<CR>
@@ -42,7 +61,7 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeShowBookmarks=1
 
 "--------------------------------------------------------------------------------
-" cscope:建立数据库：cscope -Rbq；  F5 查找c符号； F6 查找字符串；   F7 查找函数谁调用了，
+" cscope: create database : cscope -Rbq
 "--------------------------------------------------------------------------------
     " The following maps all invoke one of the following cscope search types:
     "
@@ -81,7 +100,10 @@ nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 
 "nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-"F5 查找c符号； F6 查找字符串；   F7 查找函数定义； F8 查找函数谁调用了，
+"F5 find C Symbol like the appearence of function name, macro and enum, (Find all reference) 
+"F6 Fing all instance of the string 
+"F7 Fing all calls the function under cursor
+"F8
 nmap <silent> <F5> :cs find s <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
 nmap <silent> <F6> :cs find t <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
 "nmap <silent> <F7> :cs find g <C-R>=expand("<cword>")<CR><CR>
@@ -89,20 +111,20 @@ nmap <silent> <F7> :cs find c <C-R>=expand("<cword>")<CR><CR> :botright copen<CR
 
 
  "--------------------------------------------------------------------------------
-"  自动加载ctags: ctags -R
+"  automatically load ctags: ctags -R
 if filereadable("tags")
       set tags=tags
 endif
 
 
-"  自动保存 kernel 的ctags文件
+"  autosave ctags files of kernel
 if isdirectory("kernel/") && isdirectory("mm/")
 	au BufWritePost *.c,*.h silent! !ctags -L tags.files&
 	au BufWritePost *.c,*.h silent! !cscope -bkq -i tags.files&
 endif
 
 "--------------------------------------------------------------------------------
-" global:建立数据库
+" global: create ctags database
 "--------------------------------------------------------------------------------
 if filereadable("GTAGS")
 	set cscopetag
