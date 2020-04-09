@@ -133,7 +133,7 @@ if filereadable("GTAGS")
 	au BufWritePost *.c,*.cpp,*.h silent! !global -u &
 endif
 
-let g:guntentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 
 let g:gutentags_ctags_extra_args = ['--fiels=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args = ['--c++-kinds=+px']
