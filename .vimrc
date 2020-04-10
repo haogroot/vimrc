@@ -12,6 +12,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar' " Tag bar"
 Plugin 'scrooloose/nerdtree'
 Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'skywind3000/gutentags_plus'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -24,7 +25,7 @@ set nu!             " Display line number
 
 syntax enable
 syntax on
-colorscheme desert
+" colorscheme pablo
 
 :set autowrite
 set hlsearch
@@ -34,7 +35,10 @@ set scrolloff=3
 set wrap
 set linebreak
 set smartcase
-set clipboard=unnamed
+set clipboard^=unnamed,unnamedplus
+set expandtab
+set tabstop=4
+set shiftwidth=4
 
 " Close arrow left, right, up and down
 noremap <UP> <NOP>
@@ -57,8 +61,8 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let NERDTreeWinSize=30
 let NERDTreeShowLineNumbers=1
-"let NERDTreeAutoCenter=1
 let NERDTreeShowBookmarks=1
+let NERDTreeMinimalUI = 1
 
 "--------------------------------------------------------------------------------
 " cscope: create database : cscope -Rbq
@@ -86,7 +90,6 @@ if has("cscope")
   set csverb
 endif
 
-
 :set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
@@ -110,8 +113,9 @@ nmap <silent> <F6> :cs find t <C-R>=expand("<cword>")<CR><CR> :botright copen<CR
 nmap <silent> <F7> :cs find c <C-R>=expand("<cword>")<CR><CR> :botright copen<CR><CR>
 
 
- "--------------------------------------------------------------------------------
+"--------------------------------------------------------------------------------
 "  automatically load ctags: ctags -R
+"--------------------------------------------------------------------------------
 if filereadable("tags")
       set tags=tags
 endif
@@ -133,9 +137,29 @@ if filereadable("GTAGS")
 	au BufWritePost *.c,*.cpp,*.h silent! !global -u &
 endif
 
+"--------------------------------------------------------------------------------
+" gutentags and gutentags_plus: manage ctags, cscope and gtag files
+"--------------------------------------------------------------------------------
+" config project root markers.
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 
-let g:gutentags_ctags_extra_args = ['--fiels=+niazS', '--extra=+q']
+" tag file name
+let g:gutentags_ctags_tagfile = '.tags'
+
+" support gtags-cscope and gtags
+let g:gutentags_modules = []
+if executable('gtags-cscope') && executable('gtags')
+	let g:gutentags_modules = ['ctags', 'gtags_cscope']
+endif
+
+" generate datebases in my cache directory, prevent gtags files polluting my project
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args = ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args = ['--c-kinds=+px']
+" forbid gutentags adding gtags databases
+let g:gutentags_auto_add_gtags_cscope = 0
 
+" change focus to quickfix window after search (optional).
+let g:gutentags_plus_switch = 1
