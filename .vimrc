@@ -18,7 +18,7 @@ Plugin 'skywind3000/gutentags_plus'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-let g:ycm_server_python_interpreter='/usr/bin/python'
+let g:ycm_server_python_interpreter='/usr/bin/python3'
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 
 set nu!             " Display line number
