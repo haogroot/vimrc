@@ -13,6 +13,9 @@ Plugin 'majutsushi/tagbar' " Tag bar"
 Plugin 'scrooloose/nerdtree'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'skywind3000/gutentags_plus'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
