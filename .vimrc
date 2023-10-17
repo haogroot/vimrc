@@ -12,7 +12,6 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'majutsushi/tagbar' " Tag bar"
 Plugin 'scrooloose/nerdtree'
 Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'skywind3000/gutentags_plus'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 
